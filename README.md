@@ -14,9 +14,13 @@ git clone https://github.com/qkrwnsdn0427/V1V1_Coditional_Image_Generation_CIFAR
 ## How to run
 After you have cloned the repository, you can train cifar100 and change seed value by running the script below 
 ```bash
+!python3 dataset_tool.py --source /home/{your_path}/edm/cifar-100-python.tar.gz --dest /home/{your_path}/edm/cifar100_dataset --resolution=32x32
+```
+
+```bash
 !python3 train.py \
-    --outdir=/home/v1v1/edm/training-runs \
-    --data=/home/v1v1/edm/cifar100_dataset \
+    --outdir=/home/{your_path}/edm/training-runs \
+    --data=/home/{your_path}/edm/cifar100_dataset \
     --cond=True \
     --arch=ddpmpp \
     --precond=vp \
