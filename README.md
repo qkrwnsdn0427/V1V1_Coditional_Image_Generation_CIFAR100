@@ -16,7 +16,24 @@ git clone https://github.com/Dadaah/v1v1_image_classification_cifar100
 ## How to run
 After you have cloned the repository, you can train cifar100 and change seed value by running the script below 
 ```bash
-python /v1v1_image_classification_cifar100/main.py --seed 42 
+!python3 train.py \
+    --outdir=/home/v1v1/edm/training-runs \
+    --data=/home/v1v1/edm/cifar100_dataset \
+    --cond=True \
+    --arch=ddpmpp \
+    --precond=vp \
+    --batch=64 \
+    --lr=1e-4 \
+    --duration=27.5\
+    --augment=0.15
+```
+```bash
+!python generate.py \
+    --network=/content/network-snapshot-002500.pkl \
+    --outdir=/content/edm/generated-images \
+    --seeds=0-4999 \
+    --batch=64 \
+    --steps=18
 ```
 ## Implementation Details
 | Epoch | Learning Rate | Optimizer | Momentum |
@@ -32,6 +49,6 @@ GPU: NVIDIA RTX 3090
 
 ## Cifar-100 Results
 
-| Network         | Dropout | Preprocess          |   Per Epoch  | Top1 acc(%) | Top5 acc(%) | superclass acc(%) |
+| Network         | Dropout | Preprocess          |   Per Epoch  |  FID  | Intra-FID | Inception Score |
 |-----------------|---------|---------------------|--------------|-------------|-------------|-------------|
-| WideResNet 28*14| 0.2     | meanstd             | 11 min 34 sec |    84.74    |    97.21    |    91.44    |
+
