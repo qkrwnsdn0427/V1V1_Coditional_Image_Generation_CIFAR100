@@ -8,11 +8,18 @@ torchvison 0.19.1+cu118
 torch 2.4.1+cu118  
 
 ## Requirements
+
 ```bash
 git clone https://github.com/qkrwnsdn0427/V1V1_Coditional_Image_Generation_CIFAR100.git
 ```
 ## How to run
 After you have cloned the repository, you can train cifar100 and change seed value by running the script below 
+
+Prepare cifar100 dataset
+```bash
+!python3 cifar100_download.py
+```
+
 ```bash
 !python3 dataset_tool.py --source /home/{your_path}/edm/cifar-100-python.tar.gz --dest /home/{your_path}/edm/cifar100_dataset --resolution=32x32
 ```
