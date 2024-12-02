@@ -27,7 +27,7 @@ After you have cloned the repository, you can train cifar100 and change seed val
 ```
 ```bash
 !python generate.py \
-    --network=/content/network-snapshot-002500.pkl \
+    --network=edm/training-runs/00002-cifar100_dataset-cond-ddpmpp-vp-gpus1-batch64-fp32/network-snapshot-027526.pkl \
     --outdir=/content/edm/generated-images \
     --seeds=0-4999 \
     --batch=64 \
