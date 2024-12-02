@@ -143,7 +143,7 @@ def main(**kwargs):
     if opts.augment:
         c.augment_kwargs = dnnlib.EasyDict(class_name='training.augment.AugmentPipe', p=opts.augment)
         c.augment_kwargs.update(xflip=1e8, yflip=1, scale=1, rotate_frac=1, aniso=1, translate_frac=1,brightness=1,contrast=1)
-        c.network_kwargs.augment_dim = 9
+        c.network_kwargs.augment_dim = 11
     c.network_kwargs.update(dropout=opts.dropout, use_fp16=opts.fp16)
 
     # Training options.
