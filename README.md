@@ -21,13 +21,13 @@ Prepare cifar100 dataset
 ```
 
 ```bash
-!python3 dataset_tool.py --source /home/{your_path}/edm/cifar-100-python.tar.gz --dest /home/{your_path}/edm/cifar100_dataset --resolution=32x32
+!python3 dataset_tool.py --source /V1V1_Coditional_Image_Generation_CIFAR100/cifar-100-python.tar.gz --dest /V1V1_Coditional_Image_Generation_CIFAR100/cifar100_dataset --resolution=32x32
 ```
 
 ```bash
 !python3 train.py \
-    --outdir=/home/{your_path}/edm/training-runs \
-    --data=/home/{your_path}/edm/cifar100_dataset \
+    --outdir=/V1V1_Coditional_Image_Generation_CIFAR100/training-runs \
+    --data=/V1V1_Coditional_Image_Generation_CIFAR100/cifar100_dataset \
     --cond=True \
     --arch=ddpmpp \
     --precond=vp \
@@ -38,8 +38,8 @@ Prepare cifar100 dataset
 ```
 ```bash
 !python generate.py \
-    --network=edm/training-runs/00002-cifar100_dataset-cond-ddpmpp-vp-gpus1-batch64-fp32/network-snapshot-027526.pkl \
-    --outdir=/content/edm/generated-images \
+    --network=V1V1_Coditional_Image_Generation_CIFAR100/training-runs/00002-cifar100_dataset-cond-ddpmpp-vp-gpus1-batch64-fp32/network-snapshot-027526.pkl \
+    --outdir=/V1V1_Coditional_Image_Generation_CIFAR100/generated-images \
     --seeds=0-4999 \
     --batch=64 \
     --steps=18
