@@ -45,6 +45,7 @@ After you have cloned the repository, you can train cifar100 and change seed val
 
 ## CUDA and GPU Information
 CUDA Version: 11.8
+
 GPU: NVIDIA RTX 3090
 
 ## Cifar-100 Results
