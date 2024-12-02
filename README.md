@@ -9,7 +9,6 @@ torch 2.4.1+cu118
 
 ## Requirements
 ```bash
-pip install torch==2.4.1 torchvision==0.19.1 numpy==1.21.2 matplotlib==3.4.3 scikit-learn==1.0.2
 git clone https://github.com/qkrwnsdn0427/V1V1_Coditional_Image_Generation_CIFAR100.git
 ```
 ## How to run
