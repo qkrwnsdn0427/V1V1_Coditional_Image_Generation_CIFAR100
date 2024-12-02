@@ -35,12 +35,7 @@ After you have cloned the repository, you can train cifar100 and change seed val
     --steps=18
 ```
 ## Implementation Details
-| Epoch | Learning Rate | Optimizer | Momentum |
-|-------|---------------|-----------|----------|
-| 1~30  | 0.1           | SGD       | 0.9      |
-| 31~60 | 0.003         | SGD       | 0.9      |
-| 61~80 | 0.009         | SGD       | 0.9      |
-| 81~100| 0.0008        | SGD       | 0.9      |
+
 
 ## CUDA and GPU Information
 CUDA Version: 11.8
@@ -49,6 +44,6 @@ GPU: NVIDIA RTX 3090
 
 ## Cifar-100 Results
 
-| Network         | Dropout | Preprocess          |   Per Epoch  |  FID  | Intra-FID | Inception Score |
-|-----------------|---------|---------------------|--------------|-------------|-------------|-------------|
-
+| Network         | Dropout |    Per Epoch  |         FID        | Intra-FID | Inception Score |
+|-----------------|---------|---------------|--------------------|-------------|-------------|
+|  DDPM++         |   0.13  |  28000000     | 4.5871075833975965 | 29.77 ± 4.46 |            |
