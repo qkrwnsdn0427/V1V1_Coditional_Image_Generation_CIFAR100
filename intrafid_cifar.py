@@ -59,7 +59,7 @@ def prepare_real_images(output_dir, num_classes=100, superclass_mapping=None):
 
 
 # 설정 경로
-real_images_output_dir = "content/real-images/superclass"
+real_images_output_dir = "./real-images/superclass"
 
 # 실제 이미지 준비 실행
 prepare_real_images(real_images_output_dir, superclass_mapping=superclass_mapping)
@@ -106,8 +106,8 @@ def generate_images_flat(network_pkl, outdir, seeds_per_class, batch, steps):
     print("All images have been generated and organized.")
 
 # Configuration for the generation
-network_pkl = "/content/network-snapshot-002502.pkl"
-outdir = "/content/edm/generated-images"
+network_pkl = "./training-runs/network-snapshot-002502.pkl"
+outdir = "./intra_generated-images"
 seeds_per_class = 2500  # Number of images per class
 batch = 64
 steps = 18
