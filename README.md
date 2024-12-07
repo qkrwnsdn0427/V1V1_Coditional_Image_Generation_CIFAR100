@@ -62,7 +62,11 @@ Prepare cifar100 dataset
 !python intrafid_cifar.py 
 ```
 ```bash
-!python -m pytorch_fid path/to/dataset1 path/to/dataset2(cifar100_train_images)  --batch-size 64
+!python calculate_intra_fid.py
+```
+## calculate is score
+```bash
+!python is_score.py 
 ```
 ## CUDA and GPU Information
 CUDA Version: 11.8
