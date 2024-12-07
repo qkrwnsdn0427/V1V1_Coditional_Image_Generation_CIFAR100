@@ -106,7 +106,7 @@ def generate_images_flat(network_pkl, outdir, seeds_per_class, batch, steps):
     print("All images have been generated and organized.")
 
 # Configuration for the generation
-network_pkl = "./training-runs/network-snapshot-002502.pkl"
+network_pkl = "/content/V1V1_Coditional_Image_Generation_CIFAR100/training-runs/00000-cifar100_dataset-cond-ddpmpp-vp-gpus1-batch64-fp32/network-snapshot-000000.pkl"
 outdir = "./intra_generated-images"
 seeds_per_class = 2500  # Number of images per class
 batch = 64
