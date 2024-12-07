@@ -11,6 +11,7 @@ torch 2.4.1+cu118
 
 ```bash
 git clone https://github.com/qkrwnsdn0427/V1V1_Coditional_Image_Generation_CIFAR100.git
+pip install pytorch-fid
 ```
 ## How to run
 After you have cloned the repository, you can train cifar100 and change seed value by running the script below 
@@ -43,6 +44,11 @@ Prepare cifar100 dataset
     --seeds=0-4999 \
     --batch=64 \
     --steps=18
+```
+!python fid_cifar.py 
+```
+```
+python -m pytorch_fid /content/edm/generated-images /content/edm/cifar100_train_images --batch-size 64
 ```
 ## Implementation Details
 
