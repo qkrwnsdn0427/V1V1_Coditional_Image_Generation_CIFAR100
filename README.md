@@ -44,11 +44,13 @@ Prepare cifar100 dataset
     --seeds=0-4999 \
     --batch=64 \
     --steps=18
-```
+
+```bash
 !python fid_cifar.py 
 ```
-```
-python -m pytorch_fid /content/edm/generated-images /content/edm/cifar100_train_images --batch-size 64
+
+```bash
+!python -m pytorch_fid path/to/dataset1 path/to/dataset2(cifar-100)  --batch-size 64
 ```
 ## Implementation Details
 
