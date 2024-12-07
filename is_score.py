@@ -96,7 +96,7 @@ class CustomImageDataset(Dataset):
 
 
 if __name__ == '__main__':
-    image_folder = '/content/edm/generated-images'
+    image_folder = './generated-images'
     transform = transforms.Compose([
         transforms.Resize((32, 32)),  # 원본 이미지 크기에 따라 수정
         transforms.ToTensor(),
