@@ -45,16 +45,25 @@ Prepare cifar100 dataset
     --batch=64 \
     --steps=18
 
+```
+
+
+## Implementation Details
+## calculate FID
 ```bash
 !python fid_cifar.py 
 ```
 
 ```bash
-!python -m pytorch_fid path/to/dataset1 path/to/dataset2(cifar-100)  --batch-size 64
+!python -m pytorch_fid path/to/dataset1 path/to/dataset2(cifar100_train_images)  --batch-size 64
 ```
-## Implementation Details
-
-
+## calculate intra FID
+```bash
+!python intrafid_cifar.py 
+```
+```bash
+!python -m pytorch_fid path/to/dataset1 path/to/dataset2(cifar100_train_images)  --batch-size 64
+```
 ## CUDA and GPU Information
 CUDA Version: 11.8
 
