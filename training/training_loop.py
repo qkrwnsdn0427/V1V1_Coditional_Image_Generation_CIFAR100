@@ -47,6 +47,7 @@ def training_loop(
     cudnn_benchmark     = True,     # Enable torch.backends.cudnn.benchmark?
     device              = torch.device('cuda'),
 ):
+    print(f"lr_rampup_kimg : {lr_rampup_kimg}")
     # Initialize.
     start_time = time.time()
     np.random.seed((seed * dist.get_world_size() + dist.get_rank()) % (1 << 31))
