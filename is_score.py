@@ -126,15 +126,25 @@ class ImageDataset(Dataset):
         return image
 if __name__ == "__main__":
     # Replace with your image folder path
-    image_folder = './generated-images'
+    image_folder = "./generated-images"
+    
+    # Define image transforms
     transform = transforms.Compose([
         transforms.Resize((32, 32)),  # Adjust to your image resolution
         transforms.ToTensor(),
         transforms.Normalize(mean=[0.5, 0.5, 0.5], std=[0.5, 0.5, 0.5])  # Normalize to [-1, 1]
     ])
-    net = load_inception_net()
+    
+    # Load dataset and create DataLoader
     dataset = ImageDataset(image_folder=image_folder, transform=transform)
+    dataloader = DataLoader(dataset, batch_size=32, shuffle=False, num_workers=4)
+    
+    # Load Inception model
+    net = load_inception_net()
+    
     print('Gathering activations...')
-    logits = accumulate_inception_activations(dataset, net,50000)
+    logits = accumulate_inception_activations(dataloader, net, num_inception_images=50000)
+    
     print('Calculating Inception Score...')
-    IS_mean, IS_std = calculate_inception_score(logits.cpu().numpy(), 10)
+    IS_mean, IS_std = calculate_inception_score(logits, num_splits=10)
+    print(f"Inception Score: Mean={IS_mean:.4f}, Std={IS_std:.4f}")
