@@ -39,7 +39,7 @@ Prepare cifar100 dataset
     --augment=0.15
 ```
 ```bash
-!python generate.py \
+!python generate_a.py \
     --network=V1V1_Coditional_Image_Generation_CIFAR100/training-runs/00002-cifar100_dataset-cond-ddpmpp-vp-gpus1-batch64-fp32/network-snapshot-027526.pkl \#change your network
     --outdir=./generated-images \
     --batch=64 \
