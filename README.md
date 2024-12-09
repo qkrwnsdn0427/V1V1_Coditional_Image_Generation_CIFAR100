@@ -42,7 +42,6 @@ Prepare cifar100 dataset
 !python generate.py \
     --network=V1V1_Coditional_Image_Generation_CIFAR100/training-runs/00002-cifar100_dataset-cond-ddpmpp-vp-gpus1-batch64-fp32/network-snapshot-027526.pkl \#change your network
     --outdir=./generated-images \
-    --seeds=0-49999 \
     --batch=64 \
     --steps=18
 
