@@ -236,22 +236,13 @@ def parse_int_list(s):
 @click.option('--scaling',                 help='Ablate signal scaling s(t)', metavar='vp|none',                    type=click.Choice(['vp', 'none']))
 
 def main(network_pkl, outdir, subdirs, seeds, class_idx, max_batch_size, device=torch.device('cuda'), **sampler_kwargs):
-    """Generate random images using the techniques described in the paper
-    "Elucidating the Design Space of Diffusion-Based Generative Models".
+    """Generate random images with class-wise distribution."""
 
-    Examples:
-
-    \b
-    # Generate 64 images and save them as out/*.png
-    python generate.py --outdir=out --seeds=0-63 --batch=64 \\
-        --network=https://nvlabs-fi-cdn.nvidia.com/edm/pretrained/edm-cifar10-32x32-cond-vp.pkl
-
-    \b
-    # Generate 1024 images using 2 GPUs
-    torchrun --standalone --nproc_per_node=2 generate.py --outdir=out --seeds=0-999 --batch=64 \\
-        --network=https://nvlabs-fi-cdn.nvidia.com/edm/pretrained/edm-cifar10-32x32-cond-vp.pkl
-    """
     dist.init()
+    num_classes = 20  # 클래스 개수
+    num_images_per_class = 2500  # 클래스별 생성할 이미지 수
+    seeds = range(num_classes * num_images_per_class)  # 전체 seed 범위
+
     num_batches = ((len(seeds) - 1) // (max_batch_size * dist.get_world_size()) + 1) * dist.get_world_size()
     all_batches = torch.as_tensor(seeds).tensor_split(num_batches)
     rank_batches = all_batches[dist.get_rank() :: dist.get_world_size()]
@@ -280,12 +271,13 @@ def main(network_pkl, outdir, subdirs, seeds, class_idx, max_batch_size, device=
         # Pick latents and labels.
         rnd = StackedRandomGenerator(device, batch_seeds)
         latents = rnd.randn([batch_size, net.img_channels, net.img_resolution, net.img_resolution], device=device)
+
         class_labels = None
         if net.label_dim:
-            class_labels = torch.eye(net.label_dim, device=device)[rnd.randint(net.label_dim, size=[batch_size], device=device)]
-        if class_idx is not None:
-            class_labels[:, :] = 0
-            class_labels[:, class_idx] = 1
+            class_labels = torch.zeros([batch_size, net.label_dim], device=device)
+            for i, seed in enumerate(batch_seeds):
+                class_idx = seed // num_images_per_class  # 클래스 ID 계산
+                class_labels[i, class_idx] = 1
 
         # Generate images.
         sampler_kwargs = {key: value for key, value in sampler_kwargs.items() if value is not None}
@@ -296,9 +288,10 @@ def main(network_pkl, outdir, subdirs, seeds, class_idx, max_batch_size, device=
         # Save images.
         images_np = (images * 127.5 + 128).clip(0, 255).to(torch.uint8).permute(0, 2, 3, 1).cpu().numpy()
         for seed, image_np in zip(batch_seeds, images_np):
-            image_dir = os.path.join(outdir, f'{seed-seed%1000:06d}') if subdirs else outdir
+            class_idx = seed // num_images_per_class
+            image_dir = outdir
             os.makedirs(image_dir, exist_ok=True)
-            image_path = os.path.join(image_dir, f'{seed:06d}.png')
+            image_path = os.path.join(image_dir, f'class_{class_idx:04d}_{seed % num_images_per_class:04d}.png')
             if image_np.shape[2] == 1:
                 PIL.Image.fromarray(image_np[:, :, 0], 'L').save(image_path)
             else:
@@ -307,6 +300,7 @@ def main(network_pkl, outdir, subdirs, seeds, class_idx, max_batch_size, device=
     # Done.
     torch.distributed.barrier()
     dist.print0('Done.')
+
 
 #----------------------------------------------------------------------------
 
